@@ -1,32 +1,42 @@
-import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { sampleProducts } from "./data";
-import { Outlet } from "react-router-dom";
+import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
+import { sampleProducts } from './data';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="d-flex flex-column vh-100">
+    <div className='d-flex flex-column vh-100'>
       <header>
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar
+          bg='dark'
+          variant='dark'
+          expand='lg'
+        >
           <Container>
             <Navbar.Brand>amazon</Navbar.Brand>
           </Container>
           <Nav>
-            <a href="/cart" className="nav-link">
+            <a
+              href='/cart'
+              className='nav-link'
+            >
               Cart
             </a>
-            <a href="/signin" className="nav-link">
+            <a
+              href='/signin'
+              className='nav-link'
+            >
               Sign in
             </a>
           </Nav>
         </Navbar>
       </header>
       <main>
-        <Container className="mt-3">
+        <Container className='mt-3'>
           <Outlet />
         </Container>
       </main>
       <footer>
-        <div className="text-center bg-dark text-white p-3">
+        <div className='text-center bg-dark text-white p-3'>
           All rigths reserved
         </div>
       </footer>
