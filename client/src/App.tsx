@@ -1,14 +1,35 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { sampleProducts } from "./data";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <header>TS amazon</header>
-      <main></main>
-      <footer>All rigths reserved</footer>
+    <div className="d-flex flex-column vh-100">
+      <header>
+        <Navbar bg="dark" variant="dark" expand="lg">
+          <Container>
+            <Navbar.Brand>amazon</Navbar.Brand>
+          </Container>
+          <Nav>
+            <a href="/cart" className="nav-link">
+              Cart
+            </a>
+            <a href="/signin" className="nav-link">
+              Sign in
+            </a>
+          </Nav>
+        </Navbar>
+      </header>
+      <main>
+        <Container className="mt-3">
+          <Outlet />
+        </Container>
+      </main>
+      <footer>
+        <div className="text-center bg-dark text-white p-3">
+          All rigths reserved
+        </div>
+      </footer>
     </div>
   );
 }
