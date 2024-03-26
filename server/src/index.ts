@@ -1,8 +1,25 @@
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
 import { sampleProducts } from './data';
-const app = express();
+import ProductRoutes from './routes/Products';
+import seedRoutes from './routes/seedRouter';
+import mongoose from 'mongoose';
 
+dotenv.config();
+
+mongoose.set('strictQuery', true);
+mongoose
+  .connect(process.env.MONGO_URI!)
+  .then(() => {
+    console.log('connected to mongoose');
+  })
+  .catch(() => {
+    console.log('error mongodb');
+  });
+
+const app = express();
+app.use(express.json());
 app.use(
   cors({
     credentials: true,
@@ -10,9 +27,8 @@ app.use(
   })
 );
 
-app.get('/api/products', (req: Request, res: Response) => {
-  res.json(sampleProducts);
-});
+app.use('/api/products', ProductRoutes);
+app.use('/api/seed', seedRoutes);
 
 const PORT = 4000;
 

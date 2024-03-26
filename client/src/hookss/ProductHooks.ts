@@ -8,3 +8,12 @@ export const UseGetProductsQuery = (): UseQueryResult<ProductType[], unknown> =>
     queryFn: async () =>
       (await apiClient.get<ProductType[]>(`api/products`)).data,
   });
+
+export const UseGetProductDetailsBySlugQuery = (
+  slug: string
+): UseQueryResult<ProductType, unknown> =>
+  useQuery({
+    queryKey: ['products', slug],
+    queryFn: async () =>
+      (await apiClient.get<ProductType>(`api/products/slug/${slug}`)).data,
+  });
