@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
 import { sampleProducts } from './data';
 import ProductRoutes from './routes/Products';
+import userRoutes from './routes/Users';
 import seedRoutes from './routes/seedRouter';
 import mongoose from 'mongoose';
 
@@ -19,7 +20,6 @@ mongoose
   });
 
 const app = express();
-app.use(express.json());
 app.use(
   cors({
     credentials: true,
@@ -27,7 +27,11 @@ app.use(
   })
 );
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api/products', ProductRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/seed', seedRoutes);
 
 const PORT = 4000;
