@@ -43,6 +43,7 @@ router.post(
       isAdmin: User.isAdmin,
       token: generateToken(User),
     });
+    res.status(401).json({ message: 'registration failed' });
   })
 );
 

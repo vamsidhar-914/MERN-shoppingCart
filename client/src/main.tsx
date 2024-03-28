@@ -17,6 +17,12 @@ import { StoreProvider } from './context/Store.tsx';
 import CartPage from './pages/CartPage.tsx';
 import { SigninPage } from './pages/SigninPage.tsx';
 import SignupPage from './pages/SignupPage.tsx';
+import ShippingAddress from './pages/shippingAddress.tsx';
+import PaymentPage from './pages/PaymentPage.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
+import PlaceOrder from './pages/PlaceOrder.tsx';
+import OrderPage from './pages/OrderPage.tsx';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,13 +43,34 @@ const router = createBrowserRouter(
         element={<CartPage />}
       />
       <Route
-        path='/signin'
+        path='signin'
         element={<SigninPage />}
       />
       <Route
-        path='/signup'
+        path='signup'
         element={<SignupPage />}
       />
+      <Route
+        path=''
+        element={<ProtectedRoute />}
+      >
+        <Route
+          path='shipping'
+          element={<ShippingAddress />}
+        />
+        <Route
+          path='payment'
+          element={<PaymentPage />}
+        />
+        <Route
+          path='placeOrder'
+          element={<PlaceOrder />}
+        />
+        <Route
+          path='/order/:id'
+          element={<OrderPage />}
+        />
+      </Route>
     </Route>
   )
 );
@@ -53,12 +80,17 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <StoreProvider>
-      <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </HelmetProvider>
+      <PayPalScriptProvider
+        options={{ clientId: 'sb' }}
+        deferLoading={true}
+      >
+        <HelmetProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </HelmetProvider>
+      </PayPalScriptProvider>
     </StoreProvider>
   </React.StrictMode>
 );

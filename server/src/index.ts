@@ -5,6 +5,8 @@ import { sampleProducts } from './data';
 import ProductRoutes from './routes/Products';
 import userRoutes from './routes/Users';
 import seedRoutes from './routes/seedRouter';
+import orderRoutes from './routes/order';
+import keyRouter from './routes/keyRouter';
 import mongoose from 'mongoose';
 
 dotenv.config();
@@ -32,6 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/products', ProductRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/keys', keyRouter);
 app.use('/api/seed', seedRoutes);
 
 const PORT = 4000;
