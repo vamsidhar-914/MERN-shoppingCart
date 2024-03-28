@@ -2,6 +2,9 @@ import { CartType, ShippingAddress } from './CartType';
 import { UserInfo } from './UserInfo';
 
 export type Order = {
+  map(
+    arg0: (order: any) => import('react/jsx-runtime').JSX.Element
+  ): import('react').ReactNode;
   _id: string;
   orderItems: CartType[];
   shippingAddress: ShippingAddress;

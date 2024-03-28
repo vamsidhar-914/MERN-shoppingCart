@@ -6,6 +6,15 @@ import { Product } from '../models/Product';
 const router = express.Router();
 
 router.get(
+  '/mine',
+  isAuth,
+  expressAsyncHandler(async (req: Request, res: Response) => {
+    const orders = await OrderModel.find({ user: req.user._id });
+    res.json(orders);
+  })
+);
+
+router.get(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req: Request, res: Response) => {
